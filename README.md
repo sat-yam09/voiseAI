@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Voice RAG Project — Member 2: RAG/Retrieval Engineer
 
 ## Project Purpose
@@ -214,3 +215,6 @@ for r in results:
 4. **Implement HNSW index** for faster retrieval at scale.
 5. **Add query expansion** or HyDE for improved recall.
 6. **A/B test** different reranker models.
+=======
+# voiseAI
+>>>>>>> 9d13a05839f18c163f0061f04ab005f127a13366
