@@ -1,0 +1,20 @@
+# Voice RAG Project - Member 2: RAG/Retrieval Engineer
+# Core dependencies
+
+# Dataset loading (MSMARCO-XI parquet shards via HuggingFace)
+datasets>=2.0.0
+
+# Multilingual embeddings (XLM-R based sentence transformers)
+sentence-transformers>=3.0.0
+
+# Vector similarity search (local, CPU-efficient)
+faiss-cpu>=1.7.0
+
+# BM25 keyword retrieval
+rank-bm25>=0.2.2
+
+# Numerical operations (already used by above)
+numpy>=1.24.0
+
+# Testing
+pytest>=7.0.0

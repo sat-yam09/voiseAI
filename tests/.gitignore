@@ -1,0 +1,9 @@
+.venv/
+_pycache_/
+*.pyc
+.env
+data/cache/
+*.npy
+*.bin
+*.pt
+*.safetensors
