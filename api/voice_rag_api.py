@@ -12,6 +12,7 @@ import re
 import sys
 import time
 import asyncio
+import math
 from pathlib import Path
 
 import httpx
@@ -25,7 +26,7 @@ from src.retrieval import retrieve  # noqa: E402
 app = FastAPI(title="Voice RAG integration bridge", version="0.1.0")
 
 FILLERS = re.compile(r"\b(um+|uh+|erm|like|you know)\b", re.IGNORECASE)
-LANGUAGE_CODES = {"en", "hi", "gu"}
+LANGUAGE_CODES = {"as", "en", "hi", "gu"}
 
 
 def normalize_language(value: str) -> str:
@@ -35,13 +36,29 @@ def normalize_language(value: str) -> str:
 
 def result_matches_language(item: dict, language: str) -> bool:
     raw = str(item.get("target_lang") or item.get("source_lang") or "").lower()
-    aliases = {"en": ("en", "eng"), "hi": ("hi", "hin"), "gu": ("gu", "guj")}
+    aliases = {
+        "as": ("as", "asm", "assamese"),
+        "en": ("en", "eng"),
+        "hi": ("hi", "hin"),
+        "gu": ("gu", "guj"),
+    }
     return any(raw.startswith(alias) for alias in aliases[language])
 
 
 def normalize_query(value: str) -> str:
     """Keep query cleanup intentionally small; retrieval owns search behavior."""
     return re.sub(r"\s+", " ", FILLERS.sub(" ", value or "")).strip()
+
+
+def normalize_score(value: object) -> float:
+    """Map raw reranker logits into the frontend's 0..1 confidence range."""
+    try:
+        raw = float(value)
+    except (TypeError, ValueError):
+        return 0.0
+    if 0.0 <= raw <= 1.0:
+        return raw
+    return 1.0 / (1.0 + math.exp(-raw))
 
 
 async def transcribe_with_sarvam(audio: UploadFile) -> tuple[str, float]:
@@ -98,9 +115,9 @@ async def query(
     sources = [
         {
             "id": item.get("chunk_id", f"result-{index}"),
-            "label": f"{item.get('source_lang', 'source')} passage {index:02d}",
+            "label": f"{item.get('target_lang') or item.get('source_lang', 'source')} passage {index:02d}",
             "snippet": item.get("text", "")[:240],
-            "score": float(item.get("score", 0.0)),
+            "score": normalize_score(item.get("score", 0.0)),
         }
         for index, item in enumerate(results, start=1)
     ]

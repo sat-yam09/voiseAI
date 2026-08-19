@@ -1,9 +1,9 @@
 import { queryResponseSchema, type QueryResponse } from "@/lib/contracts";
 
-export type QueryLanguage = "en" | "hi" | "gu";
+export type QueryLanguage = "as" | "en" | "hi" | "gu";
 type QueryPayload = { text?: string; audio?: Blob; language?: QueryLanguage };
 
-export async function submitQuery({ text, audio, language = "en" }: QueryPayload): Promise<QueryResponse> {
+export async function submitQuery({ text, audio, language = "as" }: QueryPayload): Promise<QueryResponse> {
   const form = new FormData();
   if (text?.trim()) form.append("text", text.trim());
   if (audio) form.append("audio", audio, "voice-query.webm");

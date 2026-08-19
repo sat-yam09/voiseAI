@@ -16,6 +16,7 @@ The frontend can then use:
 
 ```env
 RETRIEVAL_API_URL=http://127.0.0.1:8000
+RETRIEVAL_LANGUAGE=as
 ALLOW_DEMO_FALLBACK=false
 ```
 
