@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: oklch(98.2% 0.006 245);
+  --surface: oklch(100% 0 0);
+  --ink: oklch(24% 0.024 250);
+  --muted: oklch(56% 0.022 250);
+  --line: oklch(91% 0.014 245);
+  --signal: oklch(76% 0.105 235);
+  --signal-strong: oklch(60% 0.19 250);
+  --signal-soft: oklch(94% 0.035 235);
+  --success: oklch(61% 0.12 156);
+  --warning: oklch(70% 0.13 77);
+  --danger: oklch(58% 0.19 25);
+  --radius-control: 18px;
+  --radius-surface: 14px;
+  --shadow-control: 0 10px 30px oklch(40% 0.12 250 / 0.12);
+}
+
+* { box-sizing: border-box; }
+
+html, body { min-height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+::selection { background: var(--signal); color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
