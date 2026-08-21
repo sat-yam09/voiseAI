@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# Voice RAG Project — Member 2: RAG/Retrieval Engineer
+# voiseAI — Voice RAG Project (Member 2: RAG/Retrieval Engineer)
 
 ## Project Purpose
 
@@ -215,6 +214,53 @@ for r in results:
 4. **Implement HNSW index** for faster retrieval at scale.
 5. **Add query expansion** or HyDE for improved recall.
 6. **A/B test** different reranker models.
-=======
-# voiseAI
->>>>>>> 9d13a05839f18c163f0061f04ab005f127a13366
+---
+
+## Backend API
+
+Start the FastAPI server:
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Start server (default: http://localhost:8000)
+python run_server.py
+
+# Or with uvicorn directly
+uvicorn backend.main:app --reload
+```
+
+### Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET` | `/health` | Liveness check |
+| `GET` | `/health/ready` | Readiness (index loaded?) |
+| `POST` | `/retrieve` | RAG retrieval — top-K chunks |
+| `POST` | `/retrieve/raw` | RAG retrieval with timing diagnostics |
+| `GET` | `/config` | Current pipeline config |
+| `POST` | `/config` | Partial config override |
+
+Interactive docs: **http://localhost:8000/docs**
+
+### Example request
+
+```bash
+curl -X POST http://localhost:8000/retrieve \
+  -H "Content-Type: application/json" \
+  -d '{"query": "What is a corporation?", "top_k": 3}'
+```
+
+### Environment variables
+
+Copy `.env.example` to `.env` and edit as needed:
+
+| Variable | Default | Description |
+|---|---|---|
+| `HOST` | `0.0.0.0` | Bind address |
+| `PORT` | `8000` | Port |
+| `LOG_LEVEL` | `info` | Uvicorn log level |
+| `RELOAD` | `false` | Hot-reload (dev only) |
+| `CORS_ORIGINS` | `localhost:3000,5173` | Allowed frontend origins |
+| `PIPELINE_CONFIG_PATH` | _(empty)_ | Custom pipeline config JSON |

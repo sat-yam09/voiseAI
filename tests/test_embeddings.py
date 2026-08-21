@@ -21,11 +21,11 @@ class TestEmbedderAPI:
 
     def test_config_defaults(self):
         cfg = Config()
-        assert cfg.embedding_dim == 768
+        assert cfg.embedding_dim == 384
         assert cfg.normalize_embeddings is True
         assert cfg.embed_batch_size == 32
-        assert cfg.embedding_query_prefix == "query: "
-        assert cfg.embedding_passage_prefix == "passage: "
+        assert cfg.embedding_query_prefix == ""
+        assert cfg.embedding_passage_prefix == ""
 
     def test_cache_dir_created(self, tmp_path):
         cfg = Config()

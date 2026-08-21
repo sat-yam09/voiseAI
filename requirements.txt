@@ -1,6 +1,11 @@
 # Voice RAG Project - Member 2: RAG/Retrieval Engineer
 # Core dependencies
 
+# ── Backend / API ─────────────────────────────────────────────────────────────
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+pydantic-settings>=2.0.0
+
 # Dataset loading (MSMARCO-XI parquet shards via HuggingFace)
 datasets>=2.0.0
 

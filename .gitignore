@@ -1,9 +1,38 @@
+# --- Environment ---
+.env
+
+# --- Python ---
 __pycache__/
 *.py[cod]
-.venv/
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
 
-web/node_modules/
-web/.next/
-web/.env.local
-web/out/
-web/*.log
+# --- Virtual environment ---
+.venv/
+venv/
+env/
+
+# --- Testing ---
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- IDE ---
+.vscode/
+.idea/
+
+# --- macOS ---
+.DS_Store
+
+# --- Data / model cache (large files) ---
+data/cache/
+*.npz
+*.faiss
+
+# --- Snapshots (VS Code extension artifact) ---
+.snapshots/

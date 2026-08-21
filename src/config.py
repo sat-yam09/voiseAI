@@ -56,14 +56,16 @@ class Config:
     # 1024 dims, trained on multilingual retrieval data. Swap freely.
     # For E5 models: set query_prefix="query: " and passage_prefix="passage: ".
     # For non-E5 models (e.g. paraphrase-*): set both prefixes to "".
-    # Matches the committed 384-dimensional vectors in data/index/vectors.npz.
-    # Rebuild the index before changing this model or its dimension.
+    # Must match the model used when the index was built.
+    # Default index on disk: paraphrase-multilingual-MiniLM-L12-v2 (384 dims).
+    # If you rebuild the index with E5, switch to:
+    #   embedding_model = "intfloat/multilingual-e5-base"  (dim=768, prefix="query: ")
     embedding_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-    embedding_dim: int = 384
+    embedding_dim: int = 384           # kept in sync with the default model
     embed_batch_size: int = 32
     normalize_embeddings: bool = True  # cosine = dot product after L2 norm
-    embedding_query_prefix: str = ""
-    embedding_passage_prefix: str = ""
+    embedding_query_prefix: str = ""   # MiniLM: no prefix needed
+    embedding_passage_prefix: str = "" # MiniLM: no prefix needed
 
     # --- vector store ---------------------------------------------------
     vector_index_name: str = "vectors.npz"
