@@ -30,8 +30,9 @@ htmlcov/
 .DS_Store
 
 # --- Data / model cache (large files) ---
-data/cache/
+data/
 *.npz
+*.npy
 *.faiss
 
 # --- Snapshots (VS Code extension artifact) ---
